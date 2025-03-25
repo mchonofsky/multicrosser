@@ -1,7 +1,7 @@
 #! sh
 redis-server &
 bin/rails server -b 0.0.0.0 &
-pid=$?
+pid=$!
 ./bin/rails crosswords:load_from_feed
 echo $pid
 wait $pid
