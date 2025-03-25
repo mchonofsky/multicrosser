@@ -10,11 +10,17 @@
   <a href="<%= @url %>">Published by the Guardian</a>
 </p>
 
-<%= content_tag(:div, '', class: 'js-crossword', data: {
+<% props = {
   crossword: @crossword,
-  'crossword-identifier': crossword_identifier,
-  room: params[:room],
-}) %>
+  crosswordIdentifier: crossword_identifier,
+  room: params[:room]
+} %>
+
+<gu-island name="CrosswordComponent"
+           priority="critical"
+           deferuntil="visible"
+           props="<%= CGI.escapeHTML(props.to_json) %>">
+</gu-island>
 
 <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
