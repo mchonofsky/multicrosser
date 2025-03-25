@@ -1,0 +1,3 @@
+nohup redis-server &
+nohup bin/rails server &
+./bin/rails crosswords:load_from_feed
