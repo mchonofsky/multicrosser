@@ -7,9 +7,9 @@ class RoomsController < ApplicationController
     @crossword = crossword
     puts 'CROSSWORD'
     puts crossword
-    @parsed_crossword = JSON.parse(crossword)
+    @parsed_crossword = JSON.parse(crossword)["data"]
     puts 'PARSED'
-    puts parsed_crossword
+    puts @parsed_crossword
     @url = url
   end
 
