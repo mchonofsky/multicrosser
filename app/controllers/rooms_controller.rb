@@ -25,12 +25,22 @@ class RoomsController < ApplicationController
   def get_crossword_data
     puts url
     response = Faraday.get(url)
-    puts response
     html = Nokogiri::HTML(response.body)
     puts html
+
     crossword_element = html.css('.js-crossword')
-    raise ActionController::RoutingError.new('Element not Found xy') unless crossword_element.any?
-    crossword_element.first['data-crossword-data']
+
+    if crossword_element.any?
+      raw_data = crossword_element.first['data-crossword-data']
+    else
+      island_element = html.css('gu-island[name="CrosswordComponent"]')
+      raise ActionController::RoutingError.new('Crossword not found') unless island_element.any?
+
+      props_json = island_element.first['props']
+      raw_data = CGI.unescapeHTML(props_json)
+    end
+
+    raw_data
   end
 
   def url
