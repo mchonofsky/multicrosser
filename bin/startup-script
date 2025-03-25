@@ -1,3 +1,5 @@
 nohup redis-server &
 nohup bin/rails server &
+pid=$?
 ./bin/rails crosswords:load_from_feed
+wait $pid
